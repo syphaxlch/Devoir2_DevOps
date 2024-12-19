@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "storageAccounts_azureacountstorage_name": {
-      "defaultValue": "azureacountstorage",
+      "defaultValue": "azureacountstorage12",
       "type": "String"
     }
   },
