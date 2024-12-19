@@ -15,7 +15,7 @@
             "value": "FtpsOnly"
         },
         "storageAccountName": {
-            "value": "azureacountstorage12"
+            "value": "rgbff0"
         },
         "sku": {
             "value": "Dynamic"
@@ -39,7 +39,7 @@
             "value": "v8.0"
         },
         "hostingPlanName": {
-            "value": "ASP-RG-99e0"
+            "value": "ASP-RG-8094"
         },
         "serverFarmResourceGroup": {
             "value": "RG"
