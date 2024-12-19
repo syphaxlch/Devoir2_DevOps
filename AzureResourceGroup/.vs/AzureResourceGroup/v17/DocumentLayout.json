@@ -1,19 +1,7 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\sypha\\OneDrive\\Bureau\\repo\\AzureResourceGroup\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{19C71373-1766-4D22-B8AA-CC2C82C9B4EC}|AzureBus.deployproj|c:\\users\\sypha\\onedrive\\bureau\\repo\\azureresourcegroup\\azuredeploy.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{19C71373-1766-4D22-B8AA-CC2C82C9B4EC}|AzureBus.deployproj|solutionrelative:azuredeploy.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{19C71373-1766-4D22-B8AA-CC2C82C9B4EC}|AzureBus.deployproj|c:\\users\\sypha\\onedrive\\bureau\\repo\\azureresourcegroup\\azuredeploy.parameters.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{19C71373-1766-4D22-B8AA-CC2C82C9B4EC}|AzureBus.deployproj|solutionrelative:azuredeploy.parameters.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1EAE909D-39B4-465E-A438-39589FD8014B}|..\\BlobFunction\\BlobFunction.deployproj|c:\\users\\sypha\\onedrive\\bureau\\repo\\blobfunction\\azuredeploy.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    }
-  ],
+  "WorkspaceRootPath": "C:\\Users\\sypha\\source\\repos\\syphaxlch\\Devoir2_DevOps\\AzureResourceGroup\\",
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -21,7 +9,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -30,45 +18,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "azuredeploy.json",
-              "DocumentMoniker": "C:\\Users\\sypha\\OneDrive\\Bureau\\repo\\AzureResourceGroup\\azuredeploy.json",
-              "RelativeDocumentMoniker": "azuredeploy.json",
-              "ToolTip": "C:\\Users\\sypha\\OneDrive\\Bureau\\repo\\AzureResourceGroup\\azuredeploy.json",
-              "RelativeToolTip": "azuredeploy.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-12-19T00:54:18.167Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "azuredeploy.parameters.json",
-              "DocumentMoniker": "C:\\Users\\sypha\\OneDrive\\Bureau\\repo\\AzureResourceGroup\\azuredeploy.parameters.json",
-              "RelativeDocumentMoniker": "azuredeploy.parameters.json",
-              "ToolTip": "C:\\Users\\sypha\\OneDrive\\Bureau\\repo\\AzureResourceGroup\\azuredeploy.parameters.json",
-              "RelativeToolTip": "azuredeploy.parameters.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-12-19T00:54:16.904Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "azuredeploy.json",
-              "DocumentMoniker": "C:\\Users\\sypha\\OneDrive\\Bureau\\repo\\BlobFunction\\azuredeploy.json",
-              "RelativeDocumentMoniker": "..\\BlobFunction\\azuredeploy.json",
-              "ToolTip": "C:\\Users\\sypha\\OneDrive\\Bureau\\repo\\BlobFunction\\azuredeploy.json",
-              "RelativeToolTip": "..\\BlobFunction\\azuredeploy.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-12-19T00:54:14.746Z",
-              "EditorCaption": ""
             }
           ]
         }
