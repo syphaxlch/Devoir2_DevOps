@@ -1,72 +1,51 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
-  "contentVersion": "1.0.0.0",
-  "parameters": {
-    "location": {
-      "value": "Canada Central"
-    },
-    "storageAccountName": {
-      "value": "BlobFunctionapp1"
-    },
-    "storageBlobContainerName": {
-      "value": "blob"
-    },
-    "accountType": {
-      "value": "Standard_LRS"
-    },
-    "kind": {
-      "value": "StorageV2"
-    },
-    "minimumTlsVersion": {
-      "value": "TLS1_2"
-    },
-    "supportsHttpsTrafficOnly": {
-      "value": true
-    },
-    "allowBlobPublicAccess": {
-      "value": false
-    },
-    "allowSharedKeyAccess": {
-      "value": true
-    },
-    "defaultOAuth": {
-      "value": false
-    },
-    "accessTier": {
-      "value": "Hot"
-    },
-    "publicNetworkAccess": {
-      "value": "Enabled"
-    },
-    "allowCrossTenantReplication": {
-      "value": false
-    },
-    "networkAclsBypass": {
-      "value": "AzureServices"
-    },
-    "networkAclsDefaultAction": {
-      "value": "Allow"
-    },
-    "networkAclsIpRules": {
-      "value": []
-    },
-    "dnsEndpointType": {
-      "value": "Standard"
-    },
-    "largeFileSharesState": {
-      "value": "Enabled"
-    },
-    "keySource": {
-      "value": "Microsoft.Storage"
-    },
-    "encryptionEnabled": {
-      "value": true
-    },
-    "keyTypeForTableAndQueueEncryption": {
-      "value": "Account"
-    },
-    "infrastructureEncryptionEnabled": {
-      "value": false
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "subscriptionId": {
+            "value": "48795d1d-efc3-44f3-a40e-3565ec977a1a"
+        },
+        "name": {
+            "value": "BlobFunctionAppAzure"
+        },
+        "location": {
+            "value": "Canada Central"
+        },
+        "ftpsState": {
+            "value": "FtpsOnly"
+        },
+        "storageAccountName": {
+            "value": "azureacountstorage12"
+        },
+        "sku": {
+            "value": "Dynamic"
+        },
+        "skuCode": {
+            "value": "Y1"
+        },
+        "workerSize": {
+            "value": "0"
+        },
+        "workerSizeId": {
+            "value": "0"
+        },
+        "numberOfWorkers": {
+            "value": "1"
+        },
+        "use32BitWorkerProcess": {
+            "value": false
+        },
+        "netFrameworkVersion": {
+            "value": "v8.0"
+        },
+        "hostingPlanName": {
+            "value": "ASP-RG-99e0"
+        },
+        "serverFarmResourceGroup": {
+            "value": "RG"
+        },
+        "alwaysOn": {
+            "value": false
+        }
     }
-  }
 }
