@@ -145,5 +145,11 @@
         "publicAccess": "None"
       }
     }
-  ]
+  ],
+  "outputs": {
+    "storageAccountConnectionString": {
+      "type": "string",
+      "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('storageAccounts_azureacountstorage_name'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_azureacountstorage_name')), '2023-05-01')[0].value, ';EndpointSuffix=core.windows.net')]"
+    }
+  }
 }
