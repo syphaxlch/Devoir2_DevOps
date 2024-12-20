@@ -28,6 +28,7 @@ jobs:
       projects: '$(Build.SourcesDirectory)/BlobFunction/FunctionApp1/FunctionApp1.csproj'
       arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)'
       zipAfterPublish: true
+      publishWebProjects: false
 
 - job: FunctionDeploy1
   displayName: 'Deploy Blob Function'
