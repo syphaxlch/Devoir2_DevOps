@@ -29,6 +29,7 @@ jobs:
       arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)'
       zipAfterPublish: true
       publishWebProjects: false
+      modifyOutputPath: false 
 
 - job: FunctionDeploy1
   displayName: 'Deploy Blob Function'
