@@ -1,7 +1,14 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\sypha\\source\\repos\\syphaxlch\\Devoir2_DevOps\\AzureResourceGroup\\",
-  "Documents": [],
+  "WorkspaceRootPath": "C:\\Users\\sypha\\OneDrive\\Bureau\\repo\\Devoir2_DevOps\\AzureResourceGroup\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C428E2B9-C7DE-4A93-8290-9D9D8E6FF8AB}|..\\QueueFunction\\QueueFunction.deployproj|c:\\users\\sypha\\onedrive\\bureau\\repo\\devoir2_devops\\queuefunction\\azuredeploy.parameters.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C428E2B9-C7DE-4A93-8290-9D9D8E6FF8AB}|..\\QueueFunction\\QueueFunction.deployproj|c:\\users\\sypha\\onedrive\\bureau\\repo\\devoir2_devops\\queuefunction\\azuredeploy.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +16,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -18,6 +25,32 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "azuredeploy.parameters.json",
+              "DocumentMoniker": "C:\\Users\\sypha\\OneDrive\\Bureau\\repo\\Devoir2_DevOps\\QueueFunction\\azuredeploy.parameters.json",
+              "RelativeDocumentMoniker": "..\\QueueFunction\\azuredeploy.parameters.json",
+              "ToolTip": "C:\\Users\\sypha\\OneDrive\\Bureau\\repo\\Devoir2_DevOps\\QueueFunction\\azuredeploy.parameters.json",
+              "RelativeToolTip": "..\\QueueFunction\\azuredeploy.parameters.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-12-20T08:44:20.763Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "azuredeploy.json",
+              "DocumentMoniker": "C:\\Users\\sypha\\OneDrive\\Bureau\\repo\\Devoir2_DevOps\\QueueFunction\\azuredeploy.json",
+              "RelativeDocumentMoniker": "..\\QueueFunction\\azuredeploy.json",
+              "ToolTip": "C:\\Users\\sypha\\OneDrive\\Bureau\\repo\\Devoir2_DevOps\\QueueFunction\\azuredeploy.json",
+              "RelativeToolTip": "..\\QueueFunction\\azuredeploy.json",
+              "ViewState": "AgIAALAAAAAAAAAAAAAYwMoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-12-20T08:28:27.716Z",
+              "EditorCaption": ""
             }
           ]
         }

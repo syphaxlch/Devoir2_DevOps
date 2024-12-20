@@ -11,6 +11,8 @@ Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "BlobFunction", "..\BlobFunc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunctionApp1", "..\BlobFunction\FunctionApp1\FunctionApp1.csproj", "{AB2F33AB-AB60-4EBE-BFB9-5F586FE8BB06}"
 EndProject
+Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "QueueFunction", "..\QueueFunction\QueueFunction.deployproj", "{C428E2B9-C7DE-4A93-8290-9D9D8E6FF8AB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{AB2F33AB-AB60-4EBE-BFB9-5F586FE8BB06}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AB2F33AB-AB60-4EBE-BFB9-5F586FE8BB06}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AB2F33AB-AB60-4EBE-BFB9-5F586FE8BB06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C428E2B9-C7DE-4A93-8290-9D9D8E6FF8AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C428E2B9-C7DE-4A93-8290-9D9D8E6FF8AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C428E2B9-C7DE-4A93-8290-9D9D8E6FF8AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C428E2B9-C7DE-4A93-8290-9D9D8E6FF8AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
