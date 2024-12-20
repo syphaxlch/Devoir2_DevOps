@@ -1,0 +1,71 @@
+trigger:
+- master
+
+pool:  "default"
+
+jobs:
+- job: DeployStorageAccount
+  displayName: 'Deploy Storage Account'
+  steps:
+    - task: AzureResourceManagerTemplateDeployment@3
+      inputs:
+        deploymentScope: 'Resource Group'
+        azureResourceManagerConnection: 'Azure subscription 1(48795d1d-efc3-44f3-a40e-3565ec977a1a)'
+        subscriptionId: '48795d1d-efc3-44f3-a40e-3565ec977a1a'
+        action: 'Create Or Update Resource Group'
+        resourceGroupName: 'RG'
+        location: 'Canada Central'
+        templateLocation: 'Linked artifact'
+        csmFile: '$(Build.SourcesDirectory)\BlobStorage\azuredeploy.json'
+        csmParametersFile: '$(Build.SourcesDirectory)\BlobStorage\azuredeploy.parameters.json'
+        deploymentMode: 'Incremental'
+
+- job: DeployAzureBus
+  displayName: 'Deploy Azure Bus'
+  dependsOn: 'DeployStorageAccount'
+  steps:
+  - task: AzureResourceManagerTemplateDeployment@3
+    inputs:
+      deploymentScope: 'Resource Group'
+      azureResourceManagerConnection: 'Azure subscription 1(48795d1d-efc3-44f3-a40e-3565ec977a1a)'
+      subscriptionId: '48795d1d-efc3-44f3-a40e-3565ec977a1a'
+      action: 'Create Or Update Resource Group'
+      resourceGroupName: 'RG'
+      location: 'Canada Central'
+      templateLocation: 'Linked artifact'
+      csmFile: '$(Build.SourcesDirectory)\AzureResourceGroup\azuredeploy.json'
+      csmParametersFile: '$(Build.SourcesDirectory)\AzureResourceGroup\azuredeploy.parameters.json'
+      deploymentMode: 'Incremental'
+
+- job: DeployFunctionApp1
+  dependsOn: 'DeployAzureBus'
+  displayName: 'Deploy Function App 1'
+  steps:
+  - task: AzureResourceManagerTemplateDeployment@3
+    inputs:
+      deploymentScope: 'Resource Group'
+      azureResourceManagerConnection: 'Azure subscription 1(48795d1d-efc3-44f3-a40e-3565ec977a1a)'
+      subscriptionId: '48795d1d-efc3-44f3-a40e-3565ec977a1a'
+      action: 'Create Or Update Resource Group'
+      resourceGroupName: 'RG'
+      location: 'Canada Central'
+      templateLocation: 'Linked artifact'
+      csmFile: '$(Build.SourcesDirectory)\BlobFunction\azuredeploy.json'
+      csmParametersFile: '$(Build.SourcesDirectory)\BlobFunction\azuredeploy.parameters.json'
+      deploymentMode: 'Incremental'
+
+- job: DeployFunctionApp2
+  displayName: 'Deploy Function App 2'
+  steps:
+  - task: AzureResourceManagerTemplateDeployment@3
+    inputs:
+      deploymentScope: 'Resource Group'
+      azureResourceManagerConnection: 'Azure subscription 1(48795d1d-efc3-44f3-a40e-3565ec977a1a)'
+      subscriptionId: '48795d1d-efc3-44f3-a40e-3565ec977a1a'
+      action: 'Create Or Update Resource Group'
+      resourceGroupName: 'RG'
+      location: 'Canada Central'
+      templateLocation: 'Linked artifact'
+      csmFile: '$(Build.SourcesDirectory)\QueueFunction\azuredeploy.json'
+      csmParametersFile: '$(Build.SourcesDirectory)\QueueFunction\azuredeploy.parameters.json'
+      deploymentMode: 'Incremental'
