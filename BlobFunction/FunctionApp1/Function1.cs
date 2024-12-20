@@ -1,25 +1,40 @@
+using System;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
+using Azure.Messaging.ServiceBus;
 
-namespace FunctionApp1
+public class BlobTriggerFunction
 {
-    public class Function1
+    private readonly ServiceBusClient _serviceBusClient;
+    private readonly string _queueName = Environment.GetEnvironmentVariable("messagequeue");
+
+    public BlobTriggerFunction(ServiceBusClient serviceBusClient)
     {
-        private readonly ILogger<Function1> _logger;
+        _serviceBusClient = serviceBusClient;
+    }
 
-        public Function1(ILogger<Function1> logger)
+    [Function("BlobTriggerFunction")]
+    public async Task Run(
+        [BlobTrigger("initialcontainer/{name}", Connection = "AzureWebJobsStorage")] Stream myBlob,
+        string name,
+        FunctionContext context)
+    {
+        var log = context.GetLogger("BlobTriggerFunction");
+        log.LogInformation($"Blob Trigger détecté : Nom du fichier : {name}, Taille : {myBlob.Length} bytes");
+
+        try
         {
-            _logger = logger;
+            ServiceBusSender sender = _serviceBusClient.CreateSender(_queueName);
+            ServiceBusMessage message = new ServiceBusMessage(name);
+
+            await sender.SendMessageAsync(message);
+            log.LogInformation($"Nom du fichier envoyé dans la queue : {name}");
         }
-
-        [Function(nameof(Function1))]
-        public async Task Run([BlobTrigger("initialcontainer/{name}", Connection = "DefaultEndpointsProtocol=https;AccountName=azureacountstorage12;AccountKey=F+cWu7LBuSV90kDmUmKreV60:WqycImyudf8VvcI5X4:9Mn6ixQyNocpgYXgKExIBjJuQxeP9i2M+AStFOJsUg==;EndpointSuffix=core.windows.net")] Stream stream, string name)
+        catch (Exception ex)
         {
-            using var blobStreamReader = new StreamReader(stream);
-            var content = await blobStreamReader.ReadToEndAsync();
-            _logger.LogInformation($"C# Blob trigger function Processed blob\n Name: {name} \n Data: {content}");
+            log.LogError($"Erreur lors de l'envoi du message : {ex.Message}");
         }
     }
 }
