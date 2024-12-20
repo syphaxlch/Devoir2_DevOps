@@ -41,6 +41,14 @@ jobs:
   dependsOn: FunctionBuild1
 
   steps:
+  - task: ArchiveFiles@2
+    inputs:
+      rootFolderOrFile: '$(Build.ArtifactStagingDirectory)'
+      includeRootFolder: false
+      archiveType: 'zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/functionapp.zip'
+      replaceExistingArchive: true
+
   - task: AzureFunctionApp@2
     displayName: 'Deploy Blob Function App'
     inputs:
