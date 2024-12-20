@@ -65,6 +65,10 @@ jobs:
           value: $(AzureServiceBusConnectionString)
       appType: 'functionApp'
 
+
+
+
+
 - job: FunctionBuild2
   displayName: 'Build Queue Function'
 
@@ -89,6 +93,7 @@ jobs:
       projects: '$(Build.SourcesDirectory)/QueueFunction/FunctionApp2/FunctionApp2.csproj'
       arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)'
       zipAfterPublish: true
+      publishWebProjects: false
 
 - job: FunctionDeploy2
   displayName: 'Deploy Queue Function'
