@@ -87,9 +87,21 @@ jobs:
 
 
 
+  # Job 2 : Déploiement de la fonction Blob
+  - job: FunctionDeploy1
+    displayName: 'Deploy Blob Function'
+    dependsOn: FunctionBuild1  # Ce job dépend du succès du job FunctionBuild1
 
+    steps:
+    # Étape 1 : Archiver les fichiers de la fonction Blob
+    - task: ArchiveFiles@2
+      inputs:
+        rootFolderOrFile: '$(Build.ArtifactStagingDirectory)'  # Dossier contenant les fichiers à archiver
+        includeRootFolder: false  # Ne pas inclure le dossier racine dans l'archive
+        archiveType: 'zip'  # Type d'archive (zip)
+        archiveFile: '$(Build.ArtifactStagingDirectory)/functionapp.zip'  # Chemin de l'archive créée
+        replaceExistingArchive: true  # Remplacer les archives existantes
 
-
-
+    # Étape 2 : Déployer la fonction Blob sur Azure
 
 
