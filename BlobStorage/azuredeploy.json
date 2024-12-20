@@ -149,7 +149,7 @@
   "outputs": {
     "storageAccountConnectionString": {
       "type": "Object",
-      "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('storageAccounts_azureacountstorage_name'), ';AccountKey=', first(listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_azureacountstorage_name')), '2023-05-01').keys).value, ';EndpointSuffix=core.windows.net')]"
+      "value": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_azureacountstorage_name')), '2023-05-01')]"
     }
   }
 }
