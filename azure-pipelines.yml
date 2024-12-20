@@ -59,7 +59,7 @@ jobs:
       resourceGroupName: 'RG'
       slotName: 'production'
       appSettings: |
-        - name: Blob_ConnectionString
+        - name: AzureWebJobsStorage
           value: $(BlobConnectionString)
         - name: ServiceBus_ConnectionString
           value: $(AzureServiceBusConnectionString)
