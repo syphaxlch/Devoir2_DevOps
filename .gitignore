@@ -1,0 +1,14 @@
+# Ignore les fichiers binaires de Visual Studio
+*.dll
+*.exe
+*.obj
+*.pdb
+
+# Ignore les fichiers cachés de Visual Studio
+.vs/
+.idea/
+.vscode/
+
+# Ignore les fichiers de build
+/bin/
+/obj/
