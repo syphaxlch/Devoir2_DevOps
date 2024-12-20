@@ -59,8 +59,10 @@ jobs:
       resourceGroupName: 'RG'
       slotName: 'production'
       appSettings: |
-        Blob_ConnectionString: $(BlobConnectionString)
-        ServiceBus_ConnectionString: $(AzureServiceBusConnectionString)
+        - name: Blob_ConnectionString
+          value: $(BlobConnectionString)
+        - name: ServiceBus_ConnectionString
+          value: $(AzureServiceBusConnectionString)
       appType: 'functionApp'
 
 - job: FunctionBuild2
