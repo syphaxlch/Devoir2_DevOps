@@ -1,12 +1,51 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
-  "contentVersion": "1.0.0.0",
-  "parameters": {
-    "sites_Queuefunctionapp1_name": {
-      "value": null
-    },
-    "serverfarms_ASP_RG_8a9f_externalid": {
-      "value": null
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "subscriptionId": {
+            "value": "48795d1d-efc3-44f3-a40e-3565ec977a1a"
+        },
+        "name": {
+            "value": "queuefunctionappp"
+        },
+        "location": {
+            "value": "Canada Central"
+        },
+        "ftpsState": {
+            "value": "FtpsOnly"
+        },
+        "storageAccountName": {
+            "value": "rgbdf6"
+        },
+        "sku": {
+            "value": "Dynamic"
+        },
+        "skuCode": {
+            "value": "Y1"
+        },
+        "workerSize": {
+            "value": "0"
+        },
+        "workerSizeId": {
+            "value": "0"
+        },
+        "numberOfWorkers": {
+            "value": "1"
+        },
+        "use32BitWorkerProcess": {
+            "value": false
+        },
+        "netFrameworkVersion": {
+            "value": "v8.0"
+        },
+        "hostingPlanName": {
+            "value": "ASP-RG-9ff6"
+        },
+        "serverFarmResourceGroup": {
+            "value": "RG"
+        },
+        "alwaysOn": {
+            "value": false
+        }
     }
-  }
 }

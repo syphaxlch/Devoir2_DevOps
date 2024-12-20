@@ -1,203 +1,171 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-  "contentVersion": "1.0.0.0",
-  "parameters": {
-    "sites_Queuefunctionapp1_name": {
-      "defaultValue": "Queuefunctionapp1",
-      "type": "String"
-    },
-    "serverfarms_ASP_RG_8a9f_externalid": {
-      "defaultValue": "/subscriptions/48795d1d-efc3-44f3-a40e-3565ec977a1a/resourceGroups/RG/providers/Microsoft.Web/serverfarms/ASP-RG-8a9f",
-      "type": "String"
-    }
-  },
-  "variables": {},
-  "resources": [
-    {
-      "type": "Microsoft.Web/sites",
-      "apiVersion": "2023-12-01",
-      "name": "[parameters('sites_Queuefunctionapp1_name')]",
-      "location": "Canada Central",
-      "tags": {
-        "hidden-link: /app-insights-resource-id": "/subscriptions/48795d1d-efc3-44f3-a40e-3565ec977a1a/resourceGroups/RG/providers/Microsoft.Insights/components/Queuefunctionapp1"
-      },
-      "kind": "functionapp",
-      "properties": {
-        "enabled": true,
-        "hostNameSslStates": [
-          {
-            "name": "queuefunctionapp1.azurewebsites.net",
-            "sslState": "Disabled",
-            "hostType": "Standard"
-          },
-          {
-            "name": "queuefunctionapp1.scm.azurewebsites.net",
-            "sslState": "Disabled",
-            "hostType": "Repository"
-          }
-        ],
-        "serverFarmId": "[parameters('serverfarms_ASP_RG_8a9f_externalid')]",
-        "reserved": false,
-        "isXenon": false,
-        "hyperV": false,
-        "dnsConfiguration": {},
-        "vnetRouteAllEnabled": false,
-        "vnetImagePullEnabled": false,
-        "vnetContentShareEnabled": false,
-        "siteConfig": {
-          "numberOfWorkers": 1,
-          "acrUseManagedIdentityCreds": false,
-          "alwaysOn": false,
-          "http20Enabled": false,
-          "functionAppScaleLimit": 200,
-          "minimumElasticInstanceCount": 0
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "subscriptionId": {
+            "type": "string"
         },
-        "scmSiteAlsoStopped": false,
-        "clientAffinityEnabled": false,
-        "clientCertEnabled": false,
-        "clientCertMode": "Required",
-        "hostNamesDisabled": false,
-        "vnetBackupRestoreEnabled": false,
-        "customDomainVerificationId": "2AAB44B2547B2CBE1860A21D6796B451682E0E23B614A4BA75DCC125583BBAEF",
-        "containerSize": 1536,
-        "dailyMemoryTimeQuota": 0,
-        "httpsOnly": true,
-        "redundancyMode": "None",
-        "publicNetworkAccess": "Enabled",
-        "storageAccountRequired": false,
-        "keyVaultReferenceIdentity": "SystemAssigned"
-      }
-    },
-    {
-      "type": "Microsoft.Web/sites/basicPublishingCredentialsPolicies",
-      "apiVersion": "2023-12-01",
-      "name": "[concat(parameters('sites_Queuefunctionapp1_name'), '/ftp')]",
-      "location": "Canada Central",
-      "dependsOn": [
-        "[resourceId('Microsoft.Web/sites', parameters('sites_Queuefunctionapp1_name'))]"
-      ],
-      "tags": {
-        "hidden-link: /app-insights-resource-id": "/subscriptions/48795d1d-efc3-44f3-a40e-3565ec977a1a/resourceGroups/RG/providers/Microsoft.Insights/components/Queuefunctionapp1"
-      },
-      "properties": {
-        "allow": true
-      }
-    },
-    {
-      "type": "Microsoft.Web/sites/basicPublishingCredentialsPolicies",
-      "apiVersion": "2023-12-01",
-      "name": "[concat(parameters('sites_Queuefunctionapp1_name'), '/scm')]",
-      "location": "Canada Central",
-      "dependsOn": [
-        "[resourceId('Microsoft.Web/sites', parameters('sites_Queuefunctionapp1_name'))]"
-      ],
-      "tags": {
-        "hidden-link: /app-insights-resource-id": "/subscriptions/48795d1d-efc3-44f3-a40e-3565ec977a1a/resourceGroups/RG/providers/Microsoft.Insights/components/Queuefunctionapp1"
-      },
-      "properties": {
-        "allow": true
-      }
-    },
-    {
-      "type": "Microsoft.Web/sites/config",
-      "apiVersion": "2023-12-01",
-      "name": "[concat(parameters('sites_Queuefunctionapp1_name'), '/web')]",
-      "location": "Canada Central",
-      "dependsOn": [
-        "[resourceId('Microsoft.Web/sites', parameters('sites_Queuefunctionapp1_name'))]"
-      ],
-      "tags": {
-        "hidden-link: /app-insights-resource-id": "/subscriptions/48795d1d-efc3-44f3-a40e-3565ec977a1a/resourceGroups/RG/providers/Microsoft.Insights/components/Queuefunctionapp1"
-      },
-      "properties": {
-        "numberOfWorkers": 1,
-        "defaultDocuments": [
-          "Default.htm",
-          "Default.html",
-          "Default.asp",
-          "index.htm",
-          "index.html",
-          "iisstart.htm",
-          "default.aspx",
-          "index.php"
-        ],
-        "netFrameworkVersion": "v8.0",
-        "requestTracingEnabled": false,
-        "remoteDebuggingEnabled": false,
-        "httpLoggingEnabled": false,
-        "acrUseManagedIdentityCreds": false,
-        "logsDirectorySizeLimit": 35,
-        "detailedErrorLoggingEnabled": false,
-        "publishingUsername": "$Queuefunctionapp1",
-        "scmType": "None",
-        "use32BitWorkerProcess": false,
-        "webSocketsEnabled": false,
-        "alwaysOn": false,
-        "managedPipelineMode": "Integrated",
-        "virtualApplications": [
-          {
-            "virtualPath": "/",
-            "physicalPath": "site\\wwwroot",
-            "preloadEnabled": false
-          }
-        ],
-        "loadBalancing": "LeastRequests",
-        "experiments": {
-          "rampUpRules": []
+        "name": {
+            "type": "string"
         },
-        "autoHealEnabled": false,
-        "vnetRouteAllEnabled": false,
-        "vnetPrivatePortsCount": 0,
-        "publicNetworkAccess": "Enabled",
-        "cors": {
-          "allowedOrigins": [
-            "https://portal.azure.com"
-          ],
-          "supportCredentials": false
+        "location": {
+            "type": "string"
         },
-        "localMySqlEnabled": false,
-        "ipSecurityRestrictions": [
-          {
-            "ipAddress": "Any",
-            "action": "Allow",
-            "priority": 2147483647,
-            "name": "Allow all",
-            "description": "Allow all access"
-          }
-        ],
-        "scmIpSecurityRestrictions": [
-          {
-            "ipAddress": "Any",
-            "action": "Allow",
-            "priority": 2147483647,
-            "name": "Allow all",
-            "description": "Allow all access"
-          }
-        ],
-        "scmIpSecurityRestrictionsUseMain": false,
-        "http20Enabled": false,
-        "minTlsVersion": "1.2",
-        "scmMinTlsVersion": "1.2",
-        "ftpsState": "FtpsOnly",
-        "preWarmedInstanceCount": 0,
-        "functionAppScaleLimit": 200,
-        "functionsRuntimeScaleMonitoringEnabled": false,
-        "minimumElasticInstanceCount": 0,
-        "azureStorageAccounts": {}
-      }
+        "use32BitWorkerProcess": {
+            "type": "bool"
+        },
+        "ftpsState": {
+            "type": "string"
+        },
+        "storageAccountName": {
+            "type": "string"
+        },
+        "netFrameworkVersion": {
+            "type": "string"
+        },
+        "sku": {
+            "type": "string"
+        },
+        "skuCode": {
+            "type": "string"
+        },
+        "workerSize": {
+            "type": "string"
+        },
+        "workerSizeId": {
+            "type": "string"
+        },
+        "numberOfWorkers": {
+            "type": "string"
+        },
+        "hostingPlanName": {
+            "type": "string"
+        },
+        "serverFarmResourceGroup": {
+            "type": "string"
+        },
+        "alwaysOn": {
+            "type": "bool"
+        }
     },
-    {
-      "type": "Microsoft.Web/sites/hostNameBindings",
-      "apiVersion": "2023-12-01",
-      "name": "[concat(parameters('sites_Queuefunctionapp1_name'), '/', parameters('sites_Queuefunctionapp1_name'), '.azurewebsites.net')]",
-      "location": "Canada Central",
-      "dependsOn": [
-        "[resourceId('Microsoft.Web/sites', parameters('sites_Queuefunctionapp1_name'))]"
-      ],
-      "properties": {
-        "siteName": "Queuefunctionapp1",
-        "hostNameType": "Verified"
-      }
-    }
-  ]
+    "variables": {
+        "contentShare": "queuefunctionappp8570"
+    },
+    "resources": [
+        {
+            "apiVersion": "2022-03-01",
+            "name": "[parameters('name')]",
+            "type": "Microsoft.Web/sites",
+            "kind": "functionapp",
+            "location": "[parameters('location')]",
+            "tags": {
+                "hidden-link: /app-insights-resource-id": "/subscriptions/48795d1d-efc3-44f3-a40e-3565ec977a1a/resourceGroups/RG/providers/microsoft.insights/components/queuefunctionapp1"
+            },
+            "dependsOn": [
+                "[concat('Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
+                "[concat('Microsoft.Storage/storageAccounts/', parameters('storageAccountName'))]"
+            ],
+            "properties": {
+                "name": "[parameters('name')]",
+                "siteConfig": {
+                    "appSettings": [
+                        {
+                            "name": "FUNCTIONS_EXTENSION_VERSION",
+                            "value": "~4"
+                        },
+                        {
+                            "name": "FUNCTIONS_WORKER_RUNTIME",
+                            "value": "dotnet-isolated"
+                        },
+                        {
+                            "name": "WEBSITE_USE_PLACEHOLDER_DOTNETISOLATED",
+                            "value": "1"
+                        },
+                        {
+                            "name": "APPLICATIONINSIGHTS_CONNECTION_STRING",
+                            "value": "InstrumentationKey=de70726f-581d-437a-b4b2-41a8e4eb6074;IngestionEndpoint=https://canadacentral-1.in.applicationinsights.azure.com/;LiveEndpoint=https://canadacentral.livediagnostics.monitor.azure.com/;ApplicationId=7f980074-970d-49b0-9d7b-c814e7d0f1f1"
+                        },
+                        {
+                            "name": "AzureWebJobsStorage",
+                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',parameters('storageAccountName'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName')), '2019-06-01').keys[0].value,';EndpointSuffix=','core.windows.net')]"
+                        }
+                    ],
+                    "cors": {
+                        "allowedOrigins": [
+                            "https://portal.azure.com"
+                        ]
+                    },
+                    "use32BitWorkerProcess": "[parameters('use32BitWorkerProcess')]",
+                    "ftpsState": "[parameters('ftpsState')]",
+                    "netFrameworkVersion": "[parameters('netFrameworkVersion')]"
+                },
+                "clientAffinityEnabled": false,
+                "virtualNetworkSubnetId": null,
+                "functionsRuntimeAdminIsolationEnabled": false,
+                "publicNetworkAccess": "Enabled",
+                "httpsOnly": true,
+                "serverFarmId": "[concat('/subscriptions/', parameters('subscriptionId'),'/resourcegroups/', parameters('serverFarmResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]"
+            },
+            "resources": [
+                {
+                    "type": "Microsoft.Web/sites/basicPublishingCredentialsPolicies",
+                    "apiVersion": "2022-09-01",
+                    "name": "[concat(parameters('name'), '/scm')]",
+                    "properties": {
+                        "allow": true
+                    },
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Web/Sites', parameters('name'))]"
+                    ]
+                },
+                {
+                    "type": "Microsoft.Web/sites/basicPublishingCredentialsPolicies",
+                    "apiVersion": "2022-09-01",
+                    "name": "[concat(parameters('name'), '/ftp')]",
+                    "properties": {
+                        "allow": true
+                    },
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Web/Sites', parameters('name'))]"
+                    ]
+                }
+            ]
+        },
+        {
+            "apiVersion": "2018-11-01",
+            "name": "[parameters('hostingPlanName')]",
+            "type": "Microsoft.Web/serverfarms",
+            "location": "[parameters('location')]",
+            "kind": "",
+            "tags": {},
+            "dependsOn": [],
+            "properties": {
+                "name": "[parameters('hostingPlanName')]",
+                "workerSize": "[parameters('workerSize')]",
+                "workerSizeId": "[parameters('workerSizeId')]",
+                "numberOfWorkers": "[parameters('numberOfWorkers')]"
+            },
+            "sku": {
+                "Tier": "[parameters('sku')]",
+                "Name": "[parameters('skuCode')]"
+            }
+        },
+        {
+            "apiVersion": "2022-05-01",
+            "type": "Microsoft.Storage/storageAccounts",
+            "name": "[parameters('storageAccountName')]",
+            "dependsOn": [],
+            "location": "[parameters('location')]",
+            "tags": {},
+            "sku": {
+                "name": "Standard_LRS"
+            },
+            "properties": {
+                "supportsHttpsTrafficOnly": true,
+                "minimumTlsVersion": "TLS1_2",
+                "defaultToOAuthAuthentication": true,
+                "allowBlobPublicAccess": false
+            }
+        }
+    ]
 }
