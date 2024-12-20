@@ -1,47 +1,63 @@
-using System;
-using System.IO;
-using System.Text;
+using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Specialized;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats.Jpeg;
+using SixLabors.ImageSharp.Processing;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Extensions.Logging;
+using System.IO;
+using System.Threading.Tasks;
+using SixLabors.Fonts;
+using SixLabors.ImageSharp.Drawing.Processing;
+using System;
 
-public static class QueueFunctionWithMemoryStream
+public static class QueueTriggerFunction
 {
-    [FunctionName("QueueFunctionWithMemoryStream")]
-    public static void Run(
-        [QueueTrigger("myqueue-items", Connection = "AzureWebJobsStorage")] string queueItem,
+    [FunctionName("QueueTriggerFunction")]
+    public static async Task Run(
+        [ServiceBusTrigger("messagequeue", Connection = "ServiceBus_ConnectionString")] string message,
+        [Blob("initial/{message}", FileAccess.ReadWrite, Connection = "Blob_ConnectionString")] Stream blobStream,
+        [Blob("modified/{message}", FileAccess.Write, Connection = "Blob_ConnectionString")] CloudBlockBlob outputBlob,  // Mise à jour ici pour utiliser 'modified'
+        [Blob("initial/{message}", FileAccess.Delete, Connection = "Blob_ConnectionString")] CloudBlockBlob inputBlob,
         ILogger log)
     {
-        log.LogInformation($"C# Queue trigger function processed: {queueItem}");
+        log.LogInformation($"Queue trigger function processed message: {message}");
 
-        try
+        // Modifier l'image (par exemple, redimensionner et ajouter un watermark)
+        using (MemoryStream memoryStream = new MemoryStream())
         {
-            // Convert the queue item to a MemoryStream
-            using (var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(queueItem)))
+            blobStream.CopyTo(memoryStream);
+            memoryStream.Position = 0; // Reset stream position
+
+            // Traitement de l'image avec ImageSharp
+            using (Image image = Image.Load(memoryStream))
             {
-                // Read from the MemoryStream
-                using (var reader = new StreamReader(memoryStream))
-                {
-                    memoryStream.Seek(0, SeekOrigin.Begin); // Reset the position to start
-                    string content = reader.ReadToEnd();
-                    log.LogInformation($"Content from MemoryStream: {content}");
-                }
+                int width = image.Width / 2;
+                int height = image.Height / 2;
+                image.Mutate(x => x.Resize(width, height));
 
-                // Simulate writing processed data to the MemoryStream
-                memoryStream.SetLength(0); // Clear the MemoryStream for new data
-                using (var writer = new StreamWriter(memoryStream))
-                {
-                    writer.Write("Processed: " + queueItem);
-                    writer.Flush(); // Ensure data is written to the stream
-                    memoryStream.Seek(0, SeekOrigin.Begin);
+                // Ajouter le watermark "UQAC"
+                var font = SystemFonts.CreateFont("Arial", 24); // Choix de la police
+                var color = Color.White; // Couleur du texte
+                var position = new PointF(image.Width - 150, image.Height - 50); // Position du watermark
 
-                    log.LogInformation($"Processed data stored in MemoryStream: {Encoding.UTF8.GetString(memoryStream.ToArray())}");
+                image.Mutate(x => x.DrawText("UQAC", font, color, position));
+
+                // Sauvegarder l'image modifiée
+                using (var outputMemoryStream = new MemoryStream())
+                {
+                    image.Save(outputMemoryStream, new JpegEncoder());
+                    outputMemoryStream.Position = 0;
+                    await outputBlob.UploadFromStreamAsync(outputMemoryStream);
                 }
             }
         }
-        catch (Exception ex)
+
+        // Supprimer l'ancien fichier dans le conteneur 'initial'
+        if (inputBlob.Exists())
         {
-            log.LogError($"An error occurred: {ex.Message}");
+            log.LogInformation($"Deleting the original blob: {message}");
+            await inputBlob.DeleteIfExistsAsync();
         }
     }
 }
