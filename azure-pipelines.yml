@@ -3,10 +3,6 @@ trigger:
 
 pool: "default"
 
-variables:
-  BlobConnectionString: $(BlobConnectionString)  # Variable sécurisée
-  AzureServiceBusConnectionString: $(AzureServiceBusConnectionString)  # Variable sécurisée
-
 jobs:
 - job: FunctionBuild1
   displayName: 'Build Blob Function'
