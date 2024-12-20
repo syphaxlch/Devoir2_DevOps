@@ -1,0 +1,138 @@
+# Déclencheur pour exécuter le pipeline sur chaque push dans la branche 'master'
+trigger:
+- master
+
+# Pool d'agents utilisé pour exécuter le pipeline (ici, l'agent par défaut)
+pool: "default"
+
+# Définition des jobs pour construire et déployer les fonctions
+jobs:
+  
+  # Job 1 : Construction de la fonction Blob
+  - job: FunctionBuild1
+    displayName: 'Build Blob Function'
+
+    steps:
+    # Étape 1 : Restaurer les dépendances du projet Blob Function
+    - task: DotNetCoreCLI@2
+      displayName: 'Restore Project for Blob Function'
+      inputs:
+        command: 'restore'  # Commande pour restaurer les dépendances
+        projects: '$(Build.SourcesDirectory)/BlobFunction/FunctionApp1/FunctionApp1.csproj'
+
+    # Étape 2 : Compiler la fonction Blob
+    - task: DotNetCoreCLI@2
+      displayName: 'Build Blob Function' 
+      inputs:
+        command: 'build'  # Commande pour compiler le projet
+        projects: '$(Build.SourcesDirectory)/BlobFunction/FunctionApp1/FunctionApp1.csproj'
+        arguments: '--configuration Release --output $(Build.BinariesDirectory)'  # Compilation en mode Release
+
+    # Étape 3 : Publier la fonction Blob après compilation
+    - task: DotNetCoreCLI@2
+      displayName: 'Publish Blob Function'  # Publication de la fonction Blob
+      inputs:
+        command: 'publish'  # Commande pour publier le projet
+        projects: '$(Build.SourcesDirectory)/BlobFunction/FunctionApp1/FunctionApp1.csproj'
+        arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)'  # Répertoire de publication
+        zipAfterPublish: true  # Publication du fichier zip
+        publishWebProjects: false  # Ne pas publier les projets Web
+        modifyOutputPath: false  # Ne pas modifier le chemin de sortie
+
+    # Étape 4 : Publier les artefacts de la fonction Blob
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'  # Chemin des artefacts
+        ArtifactName: 'drop'  # Nom de l'artefact publié
+        publishLocation: 'Container'  # L'artefact sera publié dans un conteneur
+
+
+
+
+
+
+  # Job 3 : Construction de la fonction Queue
+  - job: FunctionBuild2
+    displayName: 'Build Queue Function'
+
+    steps:
+    # Étape 1 : Restaurer les dépendances du projet Queue Function
+    - task: DotNetCoreCLI@2
+      displayName: 'Restore Project for Queue Function'
+      inputs:
+        command: 'restore'  # Commande pour restaurer les dépendances
+        projects: '$(Build.SourcesDirectory)/QueueFunction/FunctionApp2/FunctionApp2.csproj'
+
+    # Étape 2 : Compiler la fonction Queue
+    - task: DotNetCoreCLI@2
+      displayName: 'Build Queue Function'
+      inputs:
+        command: 'build'  # Commande pour compiler le projet
+        projects: '$(Build.SourcesDirectory)/QueueFunction/FunctionApp2/FunctionApp2.csproj'
+        arguments: '--configuration Release --output $(Build.BinariesDirectory)'  # Compilation en mode Release
+
+    # Étape 3 : Publier la fonction Queue après compilation
+    - task: DotNetCoreCLI@2
+      displayName: 'Publish Queue Function'
+      inputs:
+        command: 'publish'  # Commande pour publier le projet
+        projects: '$(Build.SourcesDirectory)/QueueFunction/FunctionApp2/FunctionApp2.csproj'
+        arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)'  # Répertoire de publication
+        zipAfterPublish: true  # Publication du fichier zip
+        publishWebProjects: false  # Ne pas publier les projets Web
+        modifyOutputPath: false  # Ne pas modifier le chemin de sortie
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'  # Chemin des artefacts
+        ArtifactName: 'drop'  # Nom de l'artefact publié
+        publishLocation: 'Container'  # L'artefact sera publié dans un conteneur
+
+
+
+
+
+
+
+
+
+
+
+
+  # Job 2 : Déploiement de la fonction Blob
+  - job: FunctionDeploy1
+    displayName: 'Deploy Blob Function'
+    dependsOn: FunctionBuild1  # Ce job dépend du succès du job FunctionBuild1
+
+    steps:
+    # Étape 1 : Archiver les fichiers de la fonction Blob
+    - task: ArchiveFiles@2
+      inputs:
+        rootFolderOrFile: '$(Build.ArtifactStagingDirectory)'  # Dossier contenant les fichiers à archiver
+        includeRootFolder: false  # Ne pas inclure le dossier racine dans l'archive
+        archiveType: 'zip'  # Type d'archive (zip)
+        archiveFile: '$(Build.ArtifactStagingDirectory)/functionapp.zip'  # Chemin de l'archive créée
+        replaceExistingArchive: true  # Remplacer les archives existantes
+
+    # Étape 2 : Déployer la fonction Blob sur Azure
+    - task: AzureFunctionApp@2
+      displayName: 'Deploy Blob Function App'  # Déploiement de la fonction Blob
+      inputs:
+        connectedServiceNameARM: 'Azure subscription 1(48795d1d-efc3-44f3-a40e-3565ec977a1a)'  # Nom de la connexion au service Azure
+        appName: 'BlobFunctionAppAzure'  # Nom de l'application Azure Function
+        package: '$(Build.ArtifactStagingDirectory)/**/*.zip'  # Package à déployer (zip)
+        deployToSlotOrASE: false  # Déploiement sur la production (pas de slot ou ASE)
+        resourceGroupName: 'RG'  # Groupe de ressources Azure
+        slotName: 'production'  # Slot de déploiement (production)
+        appSettings: |  # Paramètres de l'application
+          - name: BlobConnectionString
+            value: $(BlobConnectionString)  # Chaîne de connexion pour Blob Storage
+          - name: messagequeue
+            value: $(AzureServiceBusConnectionString)  # Chaîne de connexion pour Service Bus
+        appType: 'functionApp'  # Type d'application à déployer (fonction Azure)
+
+
+
+
+
+
