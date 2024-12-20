@@ -30,6 +30,11 @@ jobs:
       zipAfterPublish: true
       publishWebProjects: false
       modifyOutputPath: false 
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'drop'
+      publishLocation: 'Container'
 
 - job: FunctionDeploy1
   displayName: 'Deploy Blob Function'
