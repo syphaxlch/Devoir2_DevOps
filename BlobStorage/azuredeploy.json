@@ -145,11 +145,5 @@
         "publicAccess": "None"
       }
     }
-  ],
-  "outputs": {
-    "storageAccountConnectionString": {
-      "type": "Object",
-      "value": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_azureacountstorage_name')), '2023-05-01')]"
-    }
-  }
+  ]
 }
